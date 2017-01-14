@@ -7,7 +7,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Event implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -20,11 +28,14 @@ public class Event implements Serializable {
     private Date endDate;
     private String location;
 
-    public Event(String title, Date startDate, Date endDate, String location) {
-        this.title = title;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.location = location;
-    }
+//    public Event(Long idEvent, String title, Date startDate, Date endDate, String location) {
+//        this.idEvent=idEvent;
+//        this.title = title;
+//        this.startDate = startDate;
+//        this.endDate = endDate;
+//        this.location = location;
+//    }
 
+    //    public Event() {
+   // }
 }

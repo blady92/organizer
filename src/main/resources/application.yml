@@ -2,9 +2,18 @@
 spring: 
   datasource: 
     password: pracownia
-    url: jdbc:postgresql://localhost:5432/organizer 
+    url: "jdbc:postgresql://localhost:5432/organizer"
     username: pracownia
   jpa: 
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate: 
       ddl-auto: create-drop
+    logging: 
+      level.: 
+        org: 
+          hibernate: ERROR
+          springframework: 
+            web: DEBUG
+    security: 
+      basic: 
+        enabled: false
