@@ -28,16 +28,16 @@ import pl.lodz.ftims.pp.model.Event;
 @RequestMapping(value = "/event", produces = MediaType.APPLICATION_JSON_VALUE)
 public class EventController {
 
-private static final Logger LOGGER = LoggerFactory.getLogger(EventController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EventController.class);
 
-private final EventService eventService;
+    private final EventService eventService;
 
     @Inject
     public EventController(final EventService eventService) {
         this.eventService = eventService;
     }
-    
-        @RequestMapping(value = "/getAll", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public List<Event> getAllEvents() {
         LOGGER.info("Start getAllEvents :: ");
@@ -55,25 +55,31 @@ private final EventService eventService;
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     public Event addEvent(@Validated @RequestBody(required = true) Event event) {
-        LOGGER.info("Start addEvent  :: ",event);
+        LOGGER.info("Start addEvent  :: ", event);
         return eventService.addEvent(event);
 
     }
-    
-        @RequestMapping(value = "/edit", method = RequestMethod.POST)
+
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     public Event editEvent(@Validated @RequestBody(required = true) Event event) {
         LOGGER.info("Start editEvent  :: ");
         return eventService.editEvent(event);
 
     }
-    
-        @RequestMapping(value = "/delete", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public String deleteEvent(@RequestParam(value = "eventId", required = true) long eventId) {
+    public Event deleteEvent(@RequestParam(value = "eventId", required = true) long eventId) {
         LOGGER.info("Start deleteEvent :: ");
         return eventService.deleteEvent(eventId);
 
     }
-}
 
+    @RequestMapping(value = "/synchronization", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
+    public List<Event> synchronization(@Validated @RequestBody(required = true) List<Event> events) {
+        LOGGER.info("Start synchronization :: ");
+        return eventService.synchronization(events);
+    }
+}
