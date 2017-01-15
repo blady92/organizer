@@ -55,7 +55,7 @@ public class JwtConfiguration {
 
         @Override
         public String algorithm() {
-            return "Robert Mielczarek";
+            return "HMACSHA512";
         }
     }
 }
