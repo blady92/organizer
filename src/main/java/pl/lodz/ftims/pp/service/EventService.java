@@ -5,29 +5,30 @@
  */
 package pl.lodz.ftims.pp.service;
 
-import java.util.Date;
-import java.util.List;
-import javax.annotation.PostConstruct;
 import org.hibernate.annotations.common.util.impl.Log_$logger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import pl.lodz.ftims.pp.controller.EventController;
 import pl.lodz.ftims.pp.model.Event;
 import pl.lodz.ftims.pp.repository.EventRepository;
 
+import javax.annotation.PostConstruct;
+import javax.transaction.Transactional;
+import java.util.Date;
+import java.util.List;
+
 @Service
+@Transactional
 @Validated
 public class EventService {
 
     private final EventRepository eventRepository;
-    private static final Logger LOGGER = LoggerFactory.getLogger(EventService.class);
-
+    
     @Autowired
-    public EventService(final EventRepository eventRepository) {
+    public EventService(final EventRepository eventRepository ) {
         this.eventRepository = eventRepository;
     }
 
@@ -52,7 +53,7 @@ public class EventService {
     public List<Event> getAllEvent() {
         return eventRepository.findAll();
     }
-
+  
     @PostConstruct
     public void addEventsPost() {
         Event event1 = new Event(null, "Konferencja", new Date(117, 0, 8, 8, 0), new Date(117, 0, 10, 16, 30), "Łódź");
