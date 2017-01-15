@@ -5,7 +5,6 @@
  */
 package pl.lodz.ftims.pp.controller;
 
-import java.security.Principal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.lodz.ftims.pp.model.Event;
 import pl.lodz.ftims.pp.service.EventService;
 
+import java.security.Principal;
 import java.util.List;
 
 @CrossOrigin
@@ -51,6 +51,7 @@ public class EventController {
     @ResponseStatus(HttpStatus.OK)
     public Event addEvent(@Validated @RequestBody(required = true) Event event, Principal principal) {
         LOGGER.info("Start addEvent  :: ", event);
+        event.setUsername(principal.getName());
         return eventService.addEvent(event);
 
     }
