@@ -5,28 +5,28 @@
  */
 package pl.lodz.ftims.pp.service;
 
-import java.util.Date;
-import java.util.List;
-import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import pl.lodz.ftims.pp.model.Event;
 import pl.lodz.ftims.pp.repository.EventRepository;
 
+import javax.annotation.PostConstruct;
+import javax.transaction.Transactional;
+import java.util.Date;
+import java.util.List;
+
 @Service
+@Transactional
 @Validated
 public class EventService {
     
     private final EventRepository eventRepository;
     
-       @Autowired
+    @Autowired
     public EventService(final EventRepository eventRepository ) {
         this.eventRepository = eventRepository;
     }
-    
-
 
     public String deleteEvent(long eventId) {
         eventRepository.delete(eventId);
@@ -46,10 +46,10 @@ public class EventService {
     }
 
     public List<Event> getAllEvent() {
-      return eventRepository.findAll();
+        return eventRepository.findAll();
     }
     
-            @PostConstruct
+    @PostConstruct
     public void addEventsPost() {
         Event event1 = new Event(null , "Konferencja", new Date(116, 1, 8,8,0), new Date(116, 1, 10,16,30), "Łódź");
         Event event2 = new Event(null , "Konferencja", new Date(116, 1, 9,8,0), new Date(116, 1, 10,16,30), "Łódź");
