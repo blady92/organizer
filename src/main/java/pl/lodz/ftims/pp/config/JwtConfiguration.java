@@ -33,10 +33,12 @@ public class JwtConfiguration {
         @Override
         public OAuth2Authentication extractAuthentication(Map<String, ?> map) {
             Map<String, Object> customMap = new HashMap<>(map);
-            if (!customMap.containsKey("user_name")) {
-                customMap.put("user_name", customMap.get("email"));
+            if (customMap.containsKey("iss")) {
+                customMap.putIfAbsent("user_name", customMap.get("email"));
                 customMap.putIfAbsent("client_id", customMap.get("email"));
                 customMap.remove("aud");
+            } else {
+                customMap.putIfAbsent("user_name", customMap.get("client_id"));
             }
             return super.extractAuthentication(customMap);
         }
