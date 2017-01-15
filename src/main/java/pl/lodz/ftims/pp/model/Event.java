@@ -27,6 +27,7 @@ public class Event implements Serializable {
     private Date startDate;
     private Date endDate;
     private String location;
+    private String username;
 
 //    public Event(Long idEvent, String title, Date startDate, Date endDate, String location) {
 //        this.idEvent=idEvent;
