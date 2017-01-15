@@ -44,7 +44,7 @@ public class ResourceServerConfiguration extends WebSecurityConfigurerAdapter im
                 .httpBasic()
                 .and()
                 .authorizeRequests()
-                .anyRequest().authenticated();
+                .anyRequest().access("#oauth2.isOAuth()");
     }
 
     @Override

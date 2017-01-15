@@ -28,6 +28,9 @@ public class AccountService implements UserDetailsService, ClientDetailsService 
 
     @Override
     public ClientDetails loadClientByClientId(String clientId) throws ClientRegistrationException {
+        if (clientId.endsWith("@gmail.com")) {
+            return null;
+        }
         return Optional
                 .ofNullable(accountRepository.findByLogin(clientId))
                 .orElseThrow(() -> new UsernameNotFoundException("User with username " + clientId + " not found."));
