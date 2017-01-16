@@ -41,40 +41,37 @@ public class EventController {
 
     @RequestMapping(value = "/getOne", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public Event getEventById(@RequestParam(value = "eventId", required = true) long eventId, Principal principal) {
+    public Event getEventById(@RequestParam(value = "eventId") long eventId, Principal principal) {
         LOGGER.info("Start getEventById :: ");
         return eventService.getEventById(eventId, principal.getName());
-
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public Event addEvent(@Validated @RequestBody(required = true) Event event, Principal principal) {
+    public Event addEvent(@Validated @RequestBody Event event, Principal principal) {
         LOGGER.info("Start addEvent  :: ", event);
         event.setUsername(principal.getName());
         return eventService.addEvent(event);
-
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public Event editEvent(@Validated @RequestBody(required = true) Event event, Principal principal) {
+    public Event editEvent(@Validated @RequestBody Event event, Principal principal) {
         LOGGER.info("Start editEvent  :: ");
+        event.setUsername(principal.getName());
         return eventService.editEvent(event);
-
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public Event deleteEvent(@RequestParam(value = "eventId", required = true) long eventId, Principal principal) {
+    public Event deleteEvent(@RequestParam(value = "eventId") long eventId, Principal principal) {
         LOGGER.info("Start deleteEvent :: ");
         return eventService.deleteEvent(eventId, principal.getName());
-
     }
 
     @RequestMapping(value = "/synchronization", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public List<Event> synchronization(@Validated @RequestBody(required = true) List<Event> events, Principal principal) {
+    public List<Event> synchronization(@Validated @RequestBody List<Event> events, Principal principal) {
         LOGGER.info("Start synchronization :: ");
         return eventService.synchronization(events, principal.getName());
     }
